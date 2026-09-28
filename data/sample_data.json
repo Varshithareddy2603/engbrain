@@ -1,0 +1,2366 @@
+{
+  "services": [
+    {
+      "id": "svc-payment",
+      "name": "payment-service",
+      "repo": "acme/payment-service",
+      "language": "Python",
+      "description": "Handles payment processing, retries, and reconciliation",
+      "owners": [
+        "payments-team"
+      ],
+      "criticality": "P0"
+    },
+    {
+      "id": "svc-auth",
+      "name": "auth-service",
+      "repo": "acme/auth-service",
+      "language": "Go",
+      "description": "Authentication, sessions, and token management",
+      "owners": [
+        "platform-team"
+      ],
+      "criticality": "P0"
+    },
+    {
+      "id": "svc-order",
+      "name": "order-service",
+      "repo": "acme/order-service",
+      "language": "TypeScript",
+      "description": "Order lifecycle, inventory reservation, and fulfillment triggers",
+      "owners": [
+        "commerce-team"
+      ],
+      "criticality": "P1"
+    },
+    {
+      "id": "svc-notif",
+      "name": "notification-service",
+      "repo": "acme/notification-service",
+      "language": "Python",
+      "description": "Email, SMS, and push notification delivery",
+      "owners": [
+        "growth-team"
+      ],
+      "criticality": "P2"
+    },
+    {
+      "id": "svc-inventory",
+      "name": "inventory-service",
+      "repo": "acme/inventory-service",
+      "language": "Java",
+      "description": "Stock levels, reservations, and warehouse sync",
+      "owners": [
+        "supply-team"
+      ],
+      "criticality": "P1"
+    },
+    {
+      "id": "svc-search",
+      "name": "search-service",
+      "repo": "acme/search-service",
+      "language": "Go",
+      "description": "Product and order search indexing",
+      "owners": [
+        "platform-team"
+      ],
+      "criticality": "P1"
+    },
+    {
+      "id": "svc-billing",
+      "name": "billing-service",
+      "repo": "acme/billing-service",
+      "language": "Python",
+      "description": "Invoicing, subscriptions, and refunds",
+      "owners": [
+        "payments-team"
+      ],
+      "criticality": "P0"
+    }
+  ],
+  "commits": [
+    {
+      "id": "cmt-a1b2c3",
+      "sha": "a1b2c3d4e5f6",
+      "service_id": "svc-payment",
+      "message": "Add exponential backoff retry for payment gateway timeouts",
+      "author": "priya.sharma",
+      "date": "2025-03-12T14:22:00Z",
+      "files": [
+        "payment_service.py",
+        "retry.py",
+        "tests/test_retry.py"
+      ],
+      "pr_id": "pr-42"
+    },
+    {
+      "id": "cmt-b2c3d4",
+      "sha": "b2c3d4e5f6a7",
+      "service_id": "svc-payment",
+      "message": "Tune retry max_attempts from 5 to 3 after latency regression",
+      "author": "james.chen",
+      "date": "2025-06-18T09:15:00Z",
+      "files": [
+        "retry.py"
+      ],
+      "pr_id": "pr-87"
+    },
+    {
+      "id": "cmt-c3d4e5",
+      "sha": "c3d4e5f6a7b8",
+      "service_id": "svc-payment",
+      "message": "Add circuit breaker around external payment provider",
+      "author": "priya.sharma",
+      "date": "2025-08-04T16:40:00Z",
+      "files": [
+        "payment_service.py",
+        "circuit_breaker.py"
+      ],
+      "pr_id": "pr-112"
+    },
+    {
+      "id": "cmt-d4e5f6",
+      "sha": "d4e5f6a7b8c9",
+      "service_id": "svc-auth",
+      "message": "Reduce token TTL and add refresh token rotation",
+      "author": "alex.kim",
+      "date": "2025-02-20T11:00:00Z",
+      "files": [
+        "token.go",
+        "session.go"
+      ],
+      "pr_id": "pr-19"
+    },
+    {
+      "id": "cmt-e5f6a7",
+      "sha": "e5f6a7b8c9d0",
+      "service_id": "svc-order",
+      "message": "Idempotency keys for order creation to prevent duplicates",
+      "author": "sam.patel",
+      "date": "2025-04-08T13:30:00Z",
+      "files": [
+        "order_handler.ts",
+        "idempotency.ts"
+      ],
+      "pr_id": "pr-55"
+    },
+    {
+      "id": "cmt-f6a7b8",
+      "sha": "f6a7b8c9d0e1",
+      "service_id": "svc-inventory",
+      "message": "Optimistic locking for concurrent stock updates",
+      "author": "maria.gomez",
+      "date": "2025-05-22T10:45:00Z",
+      "files": [
+        "StockService.java"
+      ],
+      "pr_id": "pr-68"
+    },
+    {
+      "id": "cmt-g7h8i9",
+      "sha": "g7h8i9j0k1l2",
+      "service_id": "svc-notif",
+      "message": "Rate-limit outbound SMS to avoid carrier blocks",
+      "author": "lee.wong",
+      "date": "2025-07-01T08:20:00Z",
+      "files": [
+        "sms_sender.py"
+      ],
+      "pr_id": "pr-91"
+    },
+    {
+      "id": "cmt-h8i9j0",
+      "sha": "h8i9j0k1l2m3",
+      "service_id": "svc-payment",
+      "message": "Log retry attempt metrics for observability",
+      "author": "james.chen",
+      "date": "2025-09-10T15:00:00Z",
+      "files": [
+        "retry.py",
+        "metrics.py"
+      ],
+      "pr_id": "pr-134"
+    },
+    {
+      "id": "cmt-i9j0k1",
+      "sha": "i9j0k1l2m3n4",
+      "service_id": "svc-payment",
+      "message": "Hotfix: disable aggressive retry during provider outage",
+      "author": "priya.sharma",
+      "date": "2025-03-10T21:00:00Z",
+      "files": [
+        "retry.py"
+      ],
+      "pr_id": "pr-41"
+    },
+    {
+      "id": "cmt-j0k1l2",
+      "sha": "j0k1l2m3n4o5",
+      "service_id": "svc-billing",
+      "message": "Safe refund path with ledger double-entry",
+      "author": "nina.ross",
+      "date": "2025-08-20T12:00:00Z",
+      "files": [
+        "refund.py",
+        "ledger.py"
+      ],
+      "pr_id": "pr-150"
+    },
+    {
+      "id": "cmt-k1l2m3",
+      "sha": "k1l2m3n4o5p6",
+      "service_id": "svc-search",
+      "message": "Backfill index on product update failures",
+      "author": "tom.baker",
+      "date": "2025-09-01T10:00:00Z",
+      "files": [
+        "indexer.go"
+      ],
+      "pr_id": "pr-160"
+    },
+    {
+      "id": "cmt-l2m3n4",
+      "sha": "l2m3n4o5p6q7",
+      "service_id": "svc-auth",
+      "message": "Rollback token TTL experiment \u2014 restore 24h access tokens",
+      "author": "alex.kim",
+      "date": "2025-03-05T16:00:00Z",
+      "files": [
+        "token.go"
+      ],
+      "pr_id": "pr-28"
+    },
+    {
+      "id": "cmt-m3n4o5",
+      "sha": "m3n4o5p6q7r8",
+      "service_id": "svc-order",
+      "message": "Add dead-letter queue for failed fulfillment events",
+      "author": "sam.patel",
+      "date": "2025-07-15T11:00:00Z",
+      "files": [
+        "fulfillment.ts"
+      ],
+      "pr_id": "pr-120"
+    },
+    {
+      "id": "cmt-n4o5p6",
+      "sha": "n4o5p6q7r8s9",
+      "service_id": "svc-payment",
+      "message": "Feature flag for new retry jitter distribution",
+      "author": "james.chen",
+      "date": "2025-10-01T09:00:00Z",
+      "files": [
+        "retry.py"
+      ],
+      "pr_id": "pr-170"
+    },
+    {
+      "id": "cmt-o5p6q7",
+      "sha": "o5p6q7r8s9t0",
+      "service_id": "svc-inventory",
+      "message": "Warehouse sync batch size tuning",
+      "author": "maria.gomez",
+      "date": "2025-06-10T14:00:00Z",
+      "files": [
+        "WarehouseSync.java"
+      ],
+      "pr_id": "pr-75"
+    }
+  ],
+  "pull_requests": [
+    {
+      "id": "pr-42",
+      "number": 42,
+      "service_id": "svc-payment",
+      "title": "Exponential backoff for payment gateway timeouts",
+      "author": "priya.sharma",
+      "merged_at": "2025-03-12T15:00:00Z",
+      "body": "After the Mar 10 outage (INC-2025-0310) where the payment provider returned intermittent 504s, we saw cascading failures. This PR introduces exponential backoff + jitter.\n\nRelated: INC-2025-0310, ADR-007, ISSUE-881",
+      "commit_ids": [
+        "cmt-a1b2c3"
+      ],
+      "labels": [
+        "reliability",
+        "payments"
+      ],
+      "reviewers": [
+        "james.chen"
+      ],
+      "issue_ids": [
+        "issue-881"
+      ],
+      "created_at": "2025-03-08T12:00:00Z",
+      "description": "After the Mar 10 outage (INC-2025-0310) where the payment provider returned intermittent 504s, we saw cascading failures. This PR introduces exponential backoff + jitter.\n\nRelated: INC-2025-0310, ADR-007, ISSUE-881"
+    },
+    {
+      "id": "pr-87",
+      "number": 87,
+      "service_id": "svc-payment",
+      "title": "Reduce max retry attempts from 5 \u2192 3",
+      "author": "james.chen",
+      "merged_at": "2025-06-18T10:00:00Z",
+      "body": "Post-deploy of the original retry logic we observed p99 latency climb. After INC-2025-0612 we settled on 3 attempts.\n\nSee ADR-007 update.",
+      "commit_ids": [
+        "cmt-b2c3d4"
+      ],
+      "labels": [
+        "performance",
+        "payments"
+      ],
+      "reviewers": [
+        "priya.sharma"
+      ],
+      "issue_ids": [
+        "issue-920"
+      ],
+      "created_at": "2025-06-14T07:00:00Z",
+      "description": "Post-deploy of the original retry logic we observed p99 latency climb. After INC-2025-0612 we settled on 3 attempts.\n\nSee ADR-007 update."
+    },
+    {
+      "id": "pr-112",
+      "number": 112,
+      "service_id": "svc-payment",
+      "title": "Circuit breaker for external payment provider",
+      "author": "priya.sharma",
+      "merged_at": "2025-08-04T17:15:00Z",
+      "body": "Even with retries we still get thundering herds when the provider is fully down. Circuit breaker opens after consecutive failures.\n\nTriggered by INC-2025-0730.",
+      "commit_ids": [
+        "cmt-c3d4e5"
+      ],
+      "labels": [
+        "reliability",
+        "payments"
+      ],
+      "reviewers": [
+        "james.chen",
+        "alex.kim"
+      ],
+      "issue_ids": [
+        "issue-955"
+      ],
+      "created_at": "2025-07-31T14:15:00Z",
+      "description": "Even with retries we still get thundering herds when the provider is fully down. Circuit breaker opens after consecutive failures.\n\nTriggered by INC-2025-0730."
+    },
+    {
+      "id": "pr-19",
+      "number": 19,
+      "service_id": "svc-auth",
+      "title": "Shorter token TTL + refresh rotation",
+      "author": "alex.kim",
+      "merged_at": "2025-02-20T12:00:00Z",
+      "body": "Security hardening after review of token leakage risk.",
+      "commit_ids": [
+        "cmt-d4e5f6"
+      ],
+      "labels": [
+        "security"
+      ],
+      "reviewers": [
+        "platform-team"
+      ],
+      "issue_ids": [
+        "issue-410"
+      ],
+      "created_at": "2025-02-16T09:00:00Z",
+      "description": "Security hardening after review of token leakage risk."
+    },
+    {
+      "id": "pr-55",
+      "number": 55,
+      "service_id": "svc-order",
+      "title": "Idempotency keys on order create",
+      "author": "sam.patel",
+      "merged_at": "2025-04-08T14:00:00Z",
+      "body": "Prevents duplicate orders when clients retry after timeouts.",
+      "commit_ids": [
+        "cmt-e5f6a7"
+      ],
+      "labels": [
+        "reliability"
+      ],
+      "reviewers": [
+        "commerce-team"
+      ],
+      "issue_ids": [
+        "issue-512"
+      ],
+      "created_at": "2025-04-04T11:00:00Z",
+      "description": "Prevents duplicate orders when clients retry after timeouts."
+    },
+    {
+      "id": "pr-68",
+      "number": 68,
+      "service_id": "svc-inventory",
+      "title": "Optimistic locking for stock",
+      "author": "maria.gomez",
+      "merged_at": "2025-05-22T11:30:00Z",
+      "body": "Fixes race conditions under high concurrency.",
+      "commit_ids": [
+        "cmt-f6a7b8"
+      ],
+      "labels": [
+        "correctness"
+      ],
+      "reviewers": [
+        "supply-team"
+      ],
+      "issue_ids": [
+        "issue-601"
+      ],
+      "created_at": "2025-05-18T08:30:00Z",
+      "description": "Fixes race conditions under high concurrency."
+    },
+    {
+      "id": "pr-91",
+      "number": 91,
+      "service_id": "svc-notif",
+      "title": "SMS rate limiting",
+      "author": "lee.wong",
+      "merged_at": "2025-07-01T09:00:00Z",
+      "body": "Carrier complained about burst traffic.",
+      "commit_ids": [
+        "cmt-g7h8i9"
+      ],
+      "labels": [
+        "ops"
+      ],
+      "reviewers": [
+        "growth-team"
+      ],
+      "issue_ids": [
+        "issue-700"
+      ],
+      "created_at": "2025-06-27T06:00:00Z",
+      "description": "Carrier complained about burst traffic."
+    },
+    {
+      "id": "pr-134",
+      "number": 134,
+      "service_id": "svc-payment",
+      "title": "Retry attempt metrics",
+      "author": "james.chen",
+      "merged_at": "2025-09-10T16:00:00Z",
+      "body": "Emit histogram of retry counts so we can alert on rising retry rates.",
+      "commit_ids": [
+        "cmt-h8i9j0"
+      ],
+      "labels": [
+        "observability",
+        "payments"
+      ],
+      "reviewers": [
+        "priya.sharma"
+      ],
+      "issue_ids": [
+        "issue-980"
+      ],
+      "created_at": "2025-09-06T13:00:00Z",
+      "description": "Emit histogram of retry counts so we can alert on rising retry rates."
+    },
+    {
+      "id": "pr-41",
+      "number": 41,
+      "service_id": "svc-payment",
+      "title": "HOTFIX: throttle retries during provider outage",
+      "author": "priya.sharma",
+      "merged_at": "2025-03-10T21:30:00Z",
+      "body": "Emergency change during INC-2025-0310. Later replaced by proper backoff in PR-42.",
+      "commit_ids": [
+        "cmt-i9j0k1"
+      ],
+      "labels": [
+        "hotfix",
+        "payments"
+      ],
+      "reviewers": [
+        "james.chen"
+      ],
+      "issue_ids": [
+        "issue-881"
+      ],
+      "created_at": "2025-03-08T18:30:00Z",
+      "description": "Emergency change during INC-2025-0310. Later replaced by proper backoff in PR-42."
+    },
+    {
+      "id": "pr-28",
+      "number": 28,
+      "service_id": "svc-auth",
+      "title": "Revert short-lived access tokens experiment",
+      "author": "alex.kim",
+      "merged_at": "2025-03-05T17:00:00Z",
+      "body": "Rollback of PR-19 experiment after session drop spike. Restores 24h TTL.",
+      "commit_ids": [
+        "cmt-l2m3n4"
+      ],
+      "labels": [
+        "rollback",
+        "security"
+      ],
+      "reviewers": [
+        "platform-team"
+      ],
+      "issue_ids": [
+        "issue-445"
+      ],
+      "created_at": "2025-03-01T14:00:00Z",
+      "description": "Rollback of PR-19 experiment after session drop spike. Restores 24h TTL."
+    },
+    {
+      "id": "pr-150",
+      "number": 150,
+      "service_id": "svc-billing",
+      "title": "Double-entry refund ledger",
+      "author": "nina.ross",
+      "merged_at": "2025-08-20T13:00:00Z",
+      "body": "Prevents partial refund accounting errors.",
+      "commit_ids": [
+        "cmt-j0k1l2"
+      ],
+      "labels": [
+        "correctness"
+      ],
+      "reviewers": [
+        "payments-team"
+      ],
+      "issue_ids": [
+        "issue-1100"
+      ],
+      "created_at": "2025-08-16T10:00:00Z",
+      "description": "Prevents partial refund accounting errors."
+    },
+    {
+      "id": "pr-160",
+      "number": 160,
+      "service_id": "svc-search",
+      "title": "Index backfill on product update failure",
+      "author": "tom.baker",
+      "merged_at": "2025-09-01T11:00:00Z",
+      "body": "Stale search results after partial index failures.",
+      "commit_ids": [
+        "cmt-k1l2m3"
+      ],
+      "labels": [
+        "reliability"
+      ],
+      "reviewers": [
+        "platform-team"
+      ],
+      "issue_ids": [
+        "issue-1200"
+      ],
+      "created_at": "2025-08-28T08:00:00Z",
+      "description": "Stale search results after partial index failures."
+    },
+    {
+      "id": "pr-120",
+      "number": 120,
+      "service_id": "svc-order",
+      "title": "DLQ for fulfillment events",
+      "author": "sam.patel",
+      "merged_at": "2025-07-15T12:00:00Z",
+      "body": "Failed events no longer silent-drop.",
+      "commit_ids": [
+        "cmt-m3n4o5"
+      ],
+      "labels": [
+        "reliability"
+      ],
+      "reviewers": [
+        "commerce-team"
+      ],
+      "issue_ids": [
+        "issue-850"
+      ],
+      "created_at": "2025-07-11T09:00:00Z",
+      "description": "Failed events no longer silent-drop."
+    },
+    {
+      "id": "pr-170",
+      "number": 170,
+      "service_id": "svc-payment",
+      "title": "Feature-flagged retry jitter v2",
+      "author": "james.chen",
+      "merged_at": "2025-10-01T10:00:00Z",
+      "body": "Safer rollout of new jitter; can disable via flag.",
+      "commit_ids": [
+        "cmt-n4o5p6"
+      ],
+      "labels": [
+        "payments",
+        "experiment"
+      ],
+      "reviewers": [
+        "priya.sharma"
+      ],
+      "issue_ids": [
+        "issue-990"
+      ],
+      "created_at": "2025-09-27T07:00:00Z",
+      "description": "Safer rollout of new jitter; can disable via flag."
+    },
+    {
+      "id": "pr-75",
+      "number": 75,
+      "service_id": "svc-inventory",
+      "title": "Warehouse sync batch size",
+      "author": "maria.gomez",
+      "merged_at": "2025-06-10T15:00:00Z",
+      "body": "Reduce batch size after timeout spikes.",
+      "commit_ids": [
+        "cmt-o5p6q7"
+      ],
+      "labels": [
+        "performance"
+      ],
+      "reviewers": [
+        "supply-team"
+      ],
+      "issue_ids": [
+        "issue-640"
+      ],
+      "created_at": "2025-06-06T12:00:00Z",
+      "description": "Reduce batch size after timeout spikes."
+    }
+  ],
+  "issues": [
+    {
+      "id": "issue-881",
+      "number": 881,
+      "service_id": "svc-payment",
+      "title": "Payment gateway 504s cause cascade \u2014 need backoff",
+      "state": "closed",
+      "author": "oncall-bot",
+      "created_at": "2025-03-10T19:00:00Z",
+      "closed_at": "2025-03-12T15:30:00Z",
+      "labels": [
+        "bug",
+        "sev-1",
+        "reliability"
+      ],
+      "body": "Provider 504 rate elevated. Our retries without backoff exhaust connection pools. Tracked under INC-2025-0310.",
+      "related_pr_ids": [
+        "pr-41",
+        "pr-42"
+      ],
+      "related_incident_ids": [
+        "INC-2025-0310"
+      ]
+    },
+    {
+      "id": "issue-920",
+      "number": 920,
+      "service_id": "svc-payment",
+      "title": "p99 latency regression after 5-attempt retries",
+      "state": "closed",
+      "author": "james.chen",
+      "created_at": "2025-06-12T10:00:00Z",
+      "closed_at": "2025-06-18T10:30:00Z",
+      "labels": [
+        "performance",
+        "payments"
+      ],
+      "body": "After deploying max_attempts=5, p99 climbed to 3.2s. Propose reducing to 3.",
+      "related_pr_ids": [
+        "pr-87"
+      ],
+      "related_incident_ids": [
+        "INC-2025-0612"
+      ]
+    },
+    {
+      "id": "issue-955",
+      "number": 955,
+      "service_id": "svc-payment",
+      "title": "Thundering herd when payment provider is fully down",
+      "state": "closed",
+      "author": "priya.sharma",
+      "created_at": "2025-07-31T05:00:00Z",
+      "closed_at": "2025-08-04T17:30:00Z",
+      "labels": [
+        "reliability",
+        "sev-1"
+      ],
+      "body": "Retries alone insufficient. Need circuit breaker. INC-2025-0730.",
+      "related_pr_ids": [
+        "pr-112"
+      ],
+      "related_incident_ids": [
+        "INC-2025-0730"
+      ]
+    },
+    {
+      "id": "issue-980",
+      "number": 980,
+      "service_id": "svc-payment",
+      "title": "No visibility into retry rates",
+      "state": "closed",
+      "author": "james.chen",
+      "created_at": "2025-09-01T09:00:00Z",
+      "closed_at": "2025-09-10T16:30:00Z",
+      "labels": [
+        "observability"
+      ],
+      "body": "Need histogram + alert on elevated retries as leading indicator.",
+      "related_pr_ids": [
+        "pr-134"
+      ],
+      "related_incident_ids": []
+    },
+    {
+      "id": "issue-990",
+      "number": 990,
+      "service_id": "svc-payment",
+      "title": "Experiment: improved jitter distribution behind flag",
+      "state": "closed",
+      "author": "james.chen",
+      "created_at": "2025-09-20T11:00:00Z",
+      "closed_at": "2025-10-01T10:30:00Z",
+      "labels": [
+        "experiment"
+      ],
+      "body": "Roll out new jitter safely with feature flag.",
+      "related_pr_ids": [
+        "pr-170"
+      ],
+      "related_incident_ids": []
+    },
+    {
+      "id": "issue-410",
+      "number": 410,
+      "service_id": "svc-auth",
+      "title": "Token leakage risk \u2014 shorten TTL",
+      "state": "closed",
+      "author": "alex.kim",
+      "created_at": "2025-02-10T08:00:00Z",
+      "closed_at": "2025-02-20T12:30:00Z",
+      "labels": [
+        "security"
+      ],
+      "body": "Long-lived tokens increase blast radius if leaked.",
+      "related_pr_ids": [
+        "pr-19"
+      ],
+      "related_incident_ids": []
+    },
+    {
+      "id": "issue-445",
+      "number": 445,
+      "service_id": "svc-auth",
+      "title": "Session drop spike after short TTL rollout",
+      "state": "closed",
+      "author": "oncall-bot",
+      "created_at": "2025-03-04T14:00:00Z",
+      "closed_at": "2025-03-05T17:30:00Z",
+      "labels": [
+        "regression",
+        "rollback"
+      ],
+      "body": "Short access tokens caused unexpected logout rate. Request rollback.",
+      "related_pr_ids": [
+        "pr-28"
+      ],
+      "related_incident_ids": [
+        "INC-2025-0304"
+      ]
+    },
+    {
+      "id": "issue-512",
+      "number": 512,
+      "service_id": "svc-order",
+      "title": "Duplicate orders when clients retry after payment timeout",
+      "state": "closed",
+      "author": "sam.patel",
+      "created_at": "2025-04-15T12:00:00Z",
+      "closed_at": "2025-04-08T14:30:00Z",
+      "labels": [
+        "bug",
+        "reliability"
+      ],
+      "body": "Order create is not idempotent. INC-2025-0415.",
+      "related_pr_ids": [
+        "pr-55"
+      ],
+      "related_incident_ids": [
+        "INC-2025-0415"
+      ]
+    },
+    {
+      "id": "issue-601",
+      "number": 601,
+      "service_id": "svc-inventory",
+      "title": "Negative stock under concurrent reservation",
+      "state": "closed",
+      "author": "maria.gomez",
+      "created_at": "2025-05-20T15:00:00Z",
+      "closed_at": "2025-05-22T12:00:00Z",
+      "labels": [
+        "bug",
+        "correctness"
+      ],
+      "body": "Race on last item. Need optimistic locking. INC-2025-0520.",
+      "related_pr_ids": [
+        "pr-68"
+      ],
+      "related_incident_ids": [
+        "INC-2025-0520"
+      ]
+    },
+    {
+      "id": "issue-640",
+      "number": 640,
+      "service_id": "svc-inventory",
+      "title": "Warehouse sync timeouts on large batches",
+      "state": "closed",
+      "author": "maria.gomez",
+      "created_at": "2025-06-08T10:00:00Z",
+      "closed_at": "2025-06-10T15:30:00Z",
+      "labels": [
+        "performance"
+      ],
+      "body": "Reduce batch size.",
+      "related_pr_ids": [
+        "pr-75"
+      ],
+      "related_incident_ids": []
+    },
+    {
+      "id": "issue-700",
+      "number": 700,
+      "service_id": "svc-notif",
+      "title": "Carrier blocking SMS bursts",
+      "state": "closed",
+      "author": "lee.wong",
+      "created_at": "2025-06-28T09:00:00Z",
+      "closed_at": "2025-07-01T09:30:00Z",
+      "labels": [
+        "ops"
+      ],
+      "body": "Rate limit outbound SMS.",
+      "related_pr_ids": [
+        "pr-91"
+      ],
+      "related_incident_ids": []
+    },
+    {
+      "id": "issue-850",
+      "number": 850,
+      "service_id": "svc-order",
+      "title": "Silent drop of failed fulfillment events",
+      "state": "closed",
+      "author": "sam.patel",
+      "created_at": "2025-07-10T11:00:00Z",
+      "closed_at": "2025-07-15T12:30:00Z",
+      "labels": [
+        "reliability"
+      ],
+      "body": "Add DLQ.",
+      "related_pr_ids": [
+        "pr-120"
+      ],
+      "related_incident_ids": []
+    },
+    {
+      "id": "issue-1100",
+      "number": 1100,
+      "service_id": "svc-billing",
+      "title": "Partial refund can desync ledger",
+      "state": "closed",
+      "author": "nina.ross",
+      "created_at": "2025-08-15T10:00:00Z",
+      "closed_at": "2025-08-20T13:30:00Z",
+      "labels": [
+        "correctness",
+        "payments"
+      ],
+      "body": "Double-entry required for refunds.",
+      "related_pr_ids": [
+        "pr-150"
+      ],
+      "related_incident_ids": []
+    },
+    {
+      "id": "issue-1200",
+      "number": 1200,
+      "service_id": "svc-search",
+      "title": "Stale search results after partial index failure",
+      "state": "closed",
+      "author": "tom.baker",
+      "created_at": "2025-08-28T09:00:00Z",
+      "closed_at": "2025-09-01T11:30:00Z",
+      "labels": [
+        "reliability"
+      ],
+      "body": "Backfill on failure.",
+      "related_pr_ids": [
+        "pr-160"
+      ],
+      "related_incident_ids": []
+    },
+    {
+      "id": "issue-1300",
+      "number": 1300,
+      "service_id": "svc-payment",
+      "title": "Document retry policy for oncall",
+      "state": "open",
+      "author": "priya.sharma",
+      "created_at": "2025-10-05T08:00:00Z",
+      "closed_at": null,
+      "labels": [
+        "docs"
+      ],
+      "body": "Link ADR-007 and runbooks in oncall wiki.",
+      "related_pr_ids": [],
+      "related_incident_ids": []
+    }
+  ],
+  "reviews": [
+    {
+      "id": "rev-42-1",
+      "pr_id": "pr-42",
+      "service_id": "svc-payment",
+      "reviewer": "james.chen",
+      "state": "approved",
+      "submitted_at": "2025-03-12T14:50:00Z",
+      "created_at": "2025-03-12T14:50:00Z",
+      "body": "LGTM overall. Confirm max_attempts default and that non-retryable 4xx are never retried.",
+      "comments": [
+        {
+          "id": "rc-42-1a",
+          "file": "retry.py",
+          "line": 34,
+          "body": "Cap max_attempts at 5 for now; we can tune after we have metrics."
+        },
+        {
+          "id": "rc-42-1b",
+          "file": "retry.py",
+          "line": 48,
+          "body": "Good \u2014 skip retry on 4xx. Add a unit test for 400/401/403."
+        },
+        {
+          "id": "rc-42-1c",
+          "file": "payment_service.py",
+          "line": 112,
+          "body": "Wire the new retry helper here; keep the old call path behind a flag if needed."
+        }
+      ]
+    },
+    {
+      "id": "rev-42-2",
+      "pr_id": "pr-42",
+      "service_id": "svc-payment",
+      "reviewer": "alex.kim",
+      "state": "commented",
+      "submitted_at": "2025-03-12T14:40:00Z",
+      "created_at": "2025-03-12T14:40:00Z",
+      "body": "Consider jitter so pods do not retry in lockstep.",
+      "comments": [
+        {
+          "id": "rc-42-2a",
+          "file": "retry.py",
+          "line": 56,
+          "body": "Add full-jitter (AWS style) instead of fixed exponential only \u2014 reduces thundering herd."
+        }
+      ]
+    },
+    {
+      "id": "rev-87-1",
+      "pr_id": "pr-87",
+      "service_id": "svc-payment",
+      "reviewer": "priya.sharma",
+      "state": "approved",
+      "submitted_at": "2025-06-18T09:45:00Z",
+      "created_at": "2025-06-18T09:45:00Z",
+      "body": "Agree with 3 attempts given latency data from INC-2025-0612.",
+      "comments": [
+        {
+          "id": "rc-87-1a",
+          "file": "retry.py",
+          "line": 34,
+          "body": "Document why 3 was chosen \u2014 link INC-2025-0612 in the comment so future changes do not bump this blindly."
+        }
+      ]
+    },
+    {
+      "id": "rev-112-1",
+      "pr_id": "pr-112",
+      "service_id": "svc-payment",
+      "reviewer": "james.chen",
+      "state": "approved",
+      "submitted_at": "2025-08-04T17:00:00Z",
+      "created_at": "2025-08-04T17:00:00Z",
+      "body": "Circuit breaker thresholds look sane. Add half-open probe metric.",
+      "comments": [
+        {
+          "id": "rc-112-1a",
+          "file": "circuit_breaker.py",
+          "line": 22,
+          "body": "failure_threshold=5 matches our oncall runbook; keep it configurable."
+        },
+        {
+          "id": "rc-112-1b",
+          "file": "circuit_breaker.py",
+          "line": 67,
+          "body": "Emit breaker_state metric on open/half-open/close transitions."
+        },
+        {
+          "id": "rc-112-1c",
+          "file": "payment_service.py",
+          "line": 130,
+          "body": "Fail fast when open \u2014 do not enqueue retries."
+        }
+      ]
+    },
+    {
+      "id": "rev-112-2",
+      "pr_id": "pr-112",
+      "service_id": "svc-payment",
+      "reviewer": "alex.kim",
+      "state": "approved",
+      "submitted_at": "2025-08-04T16:55:00Z",
+      "created_at": "2025-08-04T16:55:00Z",
+      "body": "Good fail-fast behavior for total provider outage.",
+      "comments": [
+        {
+          "id": "rc-112-2a",
+          "file": "circuit_breaker.py",
+          "line": 41,
+          "body": "Half-open probe every 30s is fine; avoid probe storms across replicas (single probe owner or jitter)."
+        }
+      ]
+    },
+    {
+      "id": "rev-19-1",
+      "pr_id": "pr-19",
+      "service_id": "svc-auth",
+      "reviewer": "platform-team",
+      "state": "approved",
+      "submitted_at": "2025-02-20T11:40:00Z",
+      "created_at": "2025-02-20T11:40:00Z",
+      "body": "Security win. Monitor session refresh error rates after deploy.",
+      "comments": [
+        {
+          "id": "rc-19-1a",
+          "file": "token.go",
+          "line": 88,
+          "body": "Rotate refresh tokens on use; invalidate old refresh token server-side."
+        }
+      ]
+    },
+    {
+      "id": "rev-28-1",
+      "pr_id": "pr-28",
+      "service_id": "svc-auth",
+      "reviewer": "platform-team",
+      "state": "approved",
+      "submitted_at": "2025-03-05T16:40:00Z",
+      "created_at": "2025-03-05T16:40:00Z",
+      "body": "Rollback approved. Short TTL experiment failed product metrics.",
+      "comments": [
+        {
+          "id": "rc-28-1a",
+          "file": "token.go",
+          "line": 40,
+          "body": "Restore 24h access token TTL. Leave a code comment referencing INC-2025-0304."
+        }
+      ]
+    },
+    {
+      "id": "rev-55-1",
+      "pr_id": "pr-55",
+      "service_id": "svc-order",
+      "reviewer": "commerce-team",
+      "state": "approved",
+      "submitted_at": "2025-04-08T13:50:00Z",
+      "created_at": "2025-04-08T13:50:00Z",
+      "body": "Idempotency key TTL 24h is fine.",
+      "comments": [
+        {
+          "id": "rc-55-1a",
+          "file": "idempotency.ts",
+          "line": 15,
+          "body": "Reject empty Idempotency-Key with 400 so clients fail fast."
+        },
+        {
+          "id": "rc-55-1b",
+          "file": "order_handler.ts",
+          "line": 52,
+          "body": "Return same order id + body on replay within TTL."
+        }
+      ]
+    },
+    {
+      "id": "rev-68-1",
+      "pr_id": "pr-68",
+      "service_id": "svc-inventory",
+      "reviewer": "supply-team",
+      "state": "approved",
+      "submitted_at": "2025-05-22T11:10:00Z",
+      "created_at": "2025-05-22T11:10:00Z",
+      "body": "Optimistic lock + retry on conflict looks correct.",
+      "comments": [
+        {
+          "id": "rc-68-1a",
+          "file": "StockService.java",
+          "line": 94,
+          "body": "On version mismatch throw ConflictException; caller should re-read and retry once."
+        }
+      ]
+    },
+    {
+      "id": "rev-134-1",
+      "pr_id": "pr-134",
+      "service_id": "svc-payment",
+      "reviewer": "priya.sharma",
+      "state": "approved",
+      "submitted_at": "2025-09-10T15:40:00Z",
+      "created_at": "2025-09-10T15:40:00Z",
+      "body": "Alert threshold should be tuned after a week of baseline.",
+      "comments": [
+        {
+          "id": "rc-134-1a",
+          "file": "metrics.py",
+          "line": 20,
+          "body": "Histogram buckets: 0,1,2,3,5 retries. Alert on rate of attempts>=2."
+        },
+        {
+          "id": "rc-134-1b",
+          "file": "retry.py",
+          "line": 70,
+          "body": "Increment counter before sleep so we count attempted retries even if cancelled."
+        }
+      ]
+    },
+    {
+      "id": "rev-150-1",
+      "pr_id": "pr-150",
+      "service_id": "svc-billing",
+      "reviewer": "payments-team",
+      "state": "changes_requested",
+      "submitted_at": "2025-08-19T16:00:00Z",
+      "created_at": "2025-08-19T16:00:00Z",
+      "body": "Please add integration test for partial refund edge case.",
+      "comments": [
+        {
+          "id": "rc-150-1a",
+          "file": "refund.py",
+          "line": 61,
+          "body": "Both ledger legs must be in the same DB transaction."
+        },
+        {
+          "id": "rc-150-1b",
+          "file": "ledger.py",
+          "line": 18,
+          "body": "Reject unbalanced entries before commit."
+        }
+      ]
+    },
+    {
+      "id": "rev-150-2",
+      "pr_id": "pr-150",
+      "service_id": "svc-billing",
+      "reviewer": "payments-team",
+      "state": "approved",
+      "submitted_at": "2025-08-20T12:30:00Z",
+      "created_at": "2025-08-20T12:30:00Z",
+      "body": "Tests look good. Approved.",
+      "comments": [
+        {
+          "id": "rc-150-2a",
+          "file": "tests/test_refund.py",
+          "line": 40,
+          "body": "Nice coverage of partial + full refund paths."
+        }
+      ]
+    },
+    {
+      "id": "rev-160-1",
+      "pr_id": "pr-160",
+      "service_id": "svc-search",
+      "reviewer": "platform-team",
+      "state": "approved",
+      "submitted_at": "2025-09-01T10:40:00Z",
+      "created_at": "2025-09-01T10:40:00Z",
+      "body": "Backfill job must be idempotent \u2014 confirmed.",
+      "comments": [
+        {
+          "id": "rc-160-1a",
+          "file": "indexer.go",
+          "line": 155,
+          "body": "Use product version as idempotency key for backfill upserts."
+        }
+      ]
+    },
+    {
+      "id": "rev-170-1",
+      "pr_id": "pr-170",
+      "service_id": "svc-payment",
+      "reviewer": "priya.sharma",
+      "state": "approved",
+      "submitted_at": "2025-10-01T09:40:00Z",
+      "created_at": "2025-10-01T09:40:00Z",
+      "body": "Flag default off in prod until canary passes.",
+      "comments": [
+        {
+          "id": "rc-170-1a",
+          "file": "retry.py",
+          "line": 25,
+          "body": "Feature flag retry_jitter_v2 default false in production config."
+        }
+      ]
+    },
+    {
+      "id": "rev-120-1",
+      "pr_id": "pr-120",
+      "service_id": "svc-order",
+      "reviewer": "commerce-team",
+      "state": "approved",
+      "submitted_at": "2025-07-15T11:40:00Z",
+      "created_at": "2025-07-15T11:40:00Z",
+      "body": "DLQ retention 7 days is enough.",
+      "comments": [
+        {
+          "id": "rc-120-1a",
+          "file": "fulfillment.ts",
+          "line": 88,
+          "body": "Log correlation id into DLQ payload for replay debugging."
+        }
+      ]
+    },
+    {
+      "id": "rev-41-1",
+      "pr_id": "pr-41",
+      "service_id": "svc-payment",
+      "reviewer": "james.chen",
+      "state": "approved",
+      "submitted_at": "2025-03-10T21:20:00Z",
+      "created_at": "2025-03-10T21:20:00Z",
+      "body": "Hotfix OK for incident; follow with proper backoff PR.",
+      "comments": [
+        {
+          "id": "rc-41-1a",
+          "file": "retry.py",
+          "line": 10,
+          "body": "Hard-cap concurrency temporarily. Do not leave this as permanent design."
+        }
+      ]
+    },
+    {
+      "id": "rev-75-1",
+      "pr_id": "pr-75",
+      "service_id": "svc-inventory",
+      "reviewer": "supply-team",
+      "state": "approved",
+      "submitted_at": "2025-06-10T14:40:00Z",
+      "created_at": "2025-06-10T14:40:00Z",
+      "body": "Smaller batches should cut warehouse timeouts.",
+      "comments": [
+        {
+          "id": "rc-75-1a",
+          "file": "WarehouseSync.java",
+          "line": 33,
+          "body": "Batch size 500 \u2192 100; make configurable."
+        }
+      ]
+    },
+    {
+      "id": "rev-91-1",
+      "pr_id": "pr-91",
+      "service_id": "svc-notif",
+      "reviewer": "growth-team",
+      "state": "approved",
+      "submitted_at": "2025-07-01T08:50:00Z",
+      "created_at": "2025-07-01T08:50:00Z",
+      "body": "Rate limit matches carrier guidance.",
+      "comments": [
+        {
+          "id": "rc-91-1a",
+          "file": "sms_sender.py",
+          "line": 44,
+          "body": "Token bucket per destination country code."
+        }
+      ]
+    }
+  ],
+  "incidents": [
+    {
+      "id": "INC-2025-0310",
+      "title": "Payment gateway intermittent 504s \u2192 cascading failures",
+      "service_id": "svc-payment",
+      "severity": "SEV-1",
+      "started_at": "2025-03-10T18:45:00Z",
+      "resolved_at": "2025-03-11T02:30:00Z",
+      "summary": "External payment provider returned elevated 504 rates. Synchronous retries without backoff amplified load.",
+      "root_cause": "No backoff or circuit breaker on payment provider calls.",
+      "fix_summary": "Hotfix PR-41 then permanent exponential backoff (PR-42) and later circuit breaker (PR-112).",
+      "related_pr_ids": [
+        "pr-41",
+        "pr-42",
+        "pr-112"
+      ],
+      "related_commit_ids": [
+        "cmt-i9j0k1",
+        "cmt-a1b2c3",
+        "cmt-c3d4e5"
+      ],
+      "related_deployment_ids": [
+        "dep-2025-03-10-hotfix",
+        "dep-2025-03-12"
+      ],
+      "related_issue_ids": [
+        "issue-881"
+      ],
+      "related_rollback_ids": [],
+      "timeline": [
+        {
+          "time": "2025-03-10T18:45:00Z",
+          "event": "Alert: payment success rate dropped below 70%"
+        },
+        {
+          "time": "2025-03-10T19:10:00Z",
+          "event": "Identified provider 504 spike"
+        },
+        {
+          "time": "2025-03-10T21:30:00Z",
+          "event": "Hotfix PR-41 deployed"
+        },
+        {
+          "time": "2025-03-11T02:30:00Z",
+          "event": "Incident closed"
+        }
+      ]
+    },
+    {
+      "id": "INC-2025-0612",
+      "title": "p99 latency regression after retry rollout",
+      "service_id": "svc-payment",
+      "severity": "SEV-2",
+      "started_at": "2025-06-12T09:00:00Z",
+      "resolved_at": "2025-06-12T14:20:00Z",
+      "summary": "5-attempt exponential backoff raised p99 checkout latency under normal load.",
+      "root_cause": "Max attempts = 5 too high for observed failure distribution.",
+      "fix_summary": "Lowered max_attempts to 3 (PR-87).",
+      "related_pr_ids": [
+        "pr-87",
+        "pr-134"
+      ],
+      "related_commit_ids": [
+        "cmt-b2c3d4",
+        "cmt-h8i9j0"
+      ],
+      "related_deployment_ids": [
+        "dep-2025-06-18"
+      ],
+      "related_issue_ids": [
+        "issue-920"
+      ],
+      "related_rollback_ids": [
+        "rb-2025-06-12"
+      ],
+      "timeline": [
+        {
+          "time": "2025-06-12T09:00:00Z",
+          "event": "Latency alert fired"
+        },
+        {
+          "time": "2025-06-12T10:30:00Z",
+          "event": "Correlated with retry config"
+        },
+        {
+          "time": "2025-06-12T14:20:00Z",
+          "event": "Config rollback then permanent PR planned"
+        }
+      ]
+    },
+    {
+      "id": "INC-2025-0730",
+      "title": "Full payment provider outage \u2013 thundering herd",
+      "service_id": "svc-payment",
+      "severity": "SEV-1",
+      "started_at": "2025-07-30T22:15:00Z",
+      "resolved_at": "2025-07-31T04:00:00Z",
+      "summary": "Provider fully dark ~90 minutes. Retries caused thundering herd.",
+      "root_cause": "Retries without circuit breaker against a dead dependency.",
+      "fix_summary": "Circuit breaker (PR-112).",
+      "related_pr_ids": [
+        "pr-112"
+      ],
+      "related_commit_ids": [
+        "cmt-c3d4e5"
+      ],
+      "related_deployment_ids": [
+        "dep-2025-08-04"
+      ],
+      "related_issue_ids": [
+        "issue-955"
+      ],
+      "related_rollback_ids": [],
+      "timeline": [
+        {
+          "time": "2025-07-30T22:15:00Z",
+          "event": "Provider status page red"
+        },
+        {
+          "time": "2025-07-31T01:00:00Z",
+          "event": "Provider recovered but we stayed degraded"
+        },
+        {
+          "time": "2025-07-31T04:00:00Z",
+          "event": "Manual drain + recovery"
+        }
+      ]
+    },
+    {
+      "id": "INC-2025-0415",
+      "title": "Duplicate orders from client retries",
+      "service_id": "svc-order",
+      "severity": "SEV-2",
+      "started_at": "2025-04-15T11:00:00Z",
+      "resolved_at": "2025-04-15T16:00:00Z",
+      "summary": "Clients retrying after payment timeouts created duplicate orders.",
+      "root_cause": "Missing idempotency key on order create.",
+      "fix_summary": "Idempotency keys (PR-55).",
+      "related_pr_ids": [
+        "pr-55"
+      ],
+      "related_commit_ids": [
+        "cmt-e5f6a7"
+      ],
+      "related_deployment_ids": [
+        "dep-2025-04-08"
+      ],
+      "related_issue_ids": [
+        "issue-512"
+      ],
+      "related_rollback_ids": [],
+      "timeline": []
+    },
+    {
+      "id": "INC-2025-0520",
+      "title": "Negative stock under concurrent updates",
+      "service_id": "svc-inventory",
+      "severity": "SEV-2",
+      "started_at": "2025-05-20T14:00:00Z",
+      "resolved_at": "2025-05-20T18:30:00Z",
+      "summary": "Race allowed overselling last item.",
+      "root_cause": "No optimistic locking on stock decrement.",
+      "fix_summary": "Optimistic locking (PR-68).",
+      "related_pr_ids": [
+        "pr-68"
+      ],
+      "related_commit_ids": [
+        "cmt-f6a7b8"
+      ],
+      "related_deployment_ids": [
+        "dep-2025-05-22"
+      ],
+      "related_issue_ids": [
+        "issue-601"
+      ],
+      "related_rollback_ids": [],
+      "timeline": []
+    },
+    {
+      "id": "INC-2025-0304",
+      "title": "Auth session drop spike after short TTL",
+      "service_id": "svc-auth",
+      "severity": "SEV-2",
+      "started_at": "2025-03-04T13:00:00Z",
+      "resolved_at": "2025-03-05T18:00:00Z",
+      "summary": "Short-lived access tokens caused unexpected logouts.",
+      "root_cause": "TTL experiment too aggressive for client refresh behavior.",
+      "fix_summary": "Rollback via PR-28; restored 24h tokens.",
+      "related_pr_ids": [
+        "pr-28"
+      ],
+      "related_commit_ids": [
+        "cmt-l2m3n4"
+      ],
+      "related_deployment_ids": [
+        "dep-2025-03-05-rollback"
+      ],
+      "related_issue_ids": [
+        "issue-445"
+      ],
+      "related_rollback_ids": [
+        "rb-2025-03-05"
+      ],
+      "timeline": []
+    },
+    {
+      "id": "INC-2025-0818",
+      "title": "Billing refund ledger inconsistency",
+      "service_id": "svc-billing",
+      "severity": "SEV-2",
+      "started_at": "2025-08-18T10:00:00Z",
+      "resolved_at": "2025-08-18T16:00:00Z",
+      "summary": "Partial refunds left ledger out of balance for a subset of accounts.",
+      "root_cause": "Non-atomic refund path.",
+      "fix_summary": "Double-entry refund path (PR-150).",
+      "related_pr_ids": [
+        "pr-150"
+      ],
+      "related_commit_ids": [
+        "cmt-j0k1l2"
+      ],
+      "related_deployment_ids": [
+        "dep-2025-08-20"
+      ],
+      "related_issue_ids": [
+        "issue-1100"
+      ],
+      "related_rollback_ids": [],
+      "timeline": []
+    },
+    {
+      "id": "INC-2025-0902",
+      "title": "Search index lag after product updates",
+      "service_id": "svc-search",
+      "severity": "SEV-3",
+      "started_at": "2025-09-02T08:00:00Z",
+      "resolved_at": "2025-09-02T12:00:00Z",
+      "summary": "Partial index failures left stale product results.",
+      "root_cause": "No backfill on indexer failure.",
+      "fix_summary": "Backfill job (PR-160).",
+      "related_pr_ids": [
+        "pr-160"
+      ],
+      "related_commit_ids": [
+        "cmt-k1l2m3"
+      ],
+      "related_deployment_ids": [
+        "dep-2025-09-01"
+      ],
+      "related_issue_ids": [
+        "issue-1200"
+      ],
+      "related_rollback_ids": [],
+      "timeline": []
+    }
+  ],
+  "deployments": [
+    {
+      "id": "dep-2025-03-10-hotfix",
+      "service_id": "svc-payment",
+      "version": "v2.3.9-hotfix",
+      "deployed_at": "2025-03-10T21:30:00Z",
+      "commit_ids": [
+        "cmt-i9j0k1"
+      ],
+      "pr_ids": [
+        "pr-41"
+      ],
+      "environment": "production",
+      "status": "success",
+      "notes": "Emergency throttle during INC-2025-0310."
+    },
+    {
+      "id": "dep-2025-03-12",
+      "service_id": "svc-payment",
+      "version": "v2.4.0",
+      "deployed_at": "2025-03-12T16:00:00Z",
+      "commit_ids": [
+        "cmt-a1b2c3"
+      ],
+      "pr_ids": [
+        "pr-42"
+      ],
+      "environment": "production",
+      "status": "success",
+      "notes": "Exponential backoff retry. Monitored 48h."
+    },
+    {
+      "id": "dep-2025-06-18",
+      "service_id": "svc-payment",
+      "version": "v2.5.1",
+      "deployed_at": "2025-06-18T11:30:00Z",
+      "commit_ids": [
+        "cmt-b2c3d4"
+      ],
+      "pr_ids": [
+        "pr-87"
+      ],
+      "environment": "production",
+      "status": "success",
+      "notes": "max_attempts 5\u21923 after latency incident."
+    },
+    {
+      "id": "dep-2025-08-04",
+      "service_id": "svc-payment",
+      "version": "v2.6.0",
+      "deployed_at": "2025-08-04T18:00:00Z",
+      "commit_ids": [
+        "cmt-c3d4e5"
+      ],
+      "pr_ids": [
+        "pr-112"
+      ],
+      "environment": "production",
+      "status": "success",
+      "notes": "Circuit breaker live."
+    },
+    {
+      "id": "dep-2025-09-10",
+      "service_id": "svc-payment",
+      "version": "v2.6.2",
+      "deployed_at": "2025-09-10T17:00:00Z",
+      "commit_ids": [
+        "cmt-h8i9j0"
+      ],
+      "pr_ids": [
+        "pr-134"
+      ],
+      "environment": "production",
+      "status": "success",
+      "notes": "Retry metrics + alert."
+    },
+    {
+      "id": "dep-2025-10-01",
+      "service_id": "svc-payment",
+      "version": "v2.7.0",
+      "deployed_at": "2025-10-01T11:00:00Z",
+      "commit_ids": [
+        "cmt-n4o5p6"
+      ],
+      "pr_ids": [
+        "pr-170"
+      ],
+      "environment": "production",
+      "status": "success",
+      "notes": "Jitter v2 behind flag (default off)."
+    },
+    {
+      "id": "dep-2025-04-08",
+      "service_id": "svc-order",
+      "version": "v1.12.0",
+      "deployed_at": "2025-04-08T15:00:00Z",
+      "commit_ids": [
+        "cmt-e5f6a7"
+      ],
+      "pr_ids": [
+        "pr-55"
+      ],
+      "environment": "production",
+      "status": "success",
+      "notes": "Idempotency keys."
+    },
+    {
+      "id": "dep-2025-05-22",
+      "service_id": "svc-inventory",
+      "version": "v3.1.0",
+      "deployed_at": "2025-05-22T12:00:00Z",
+      "commit_ids": [
+        "cmt-f6a7b8"
+      ],
+      "pr_ids": [
+        "pr-68"
+      ],
+      "environment": "production",
+      "status": "success",
+      "notes": "Optimistic locking."
+    },
+    {
+      "id": "dep-2025-02-20",
+      "service_id": "svc-auth",
+      "version": "v4.0.0",
+      "deployed_at": "2025-02-20T13:00:00Z",
+      "commit_ids": [
+        "cmt-d4e5f6"
+      ],
+      "pr_ids": [
+        "pr-19"
+      ],
+      "environment": "production",
+      "status": "success",
+      "notes": "Token TTL + rotation."
+    },
+    {
+      "id": "dep-2025-03-05-rollback",
+      "service_id": "svc-auth",
+      "version": "v4.0.1",
+      "deployed_at": "2025-03-05T17:30:00Z",
+      "commit_ids": [
+        "cmt-l2m3n4"
+      ],
+      "pr_ids": [
+        "pr-28"
+      ],
+      "environment": "production",
+      "status": "success",
+      "notes": "Rollback short TTL experiment."
+    },
+    {
+      "id": "dep-2025-07-01",
+      "service_id": "svc-notif",
+      "version": "v1.8.0",
+      "deployed_at": "2025-07-01T10:00:00Z",
+      "commit_ids": [
+        "cmt-g7h8i9"
+      ],
+      "pr_ids": [
+        "pr-91"
+      ],
+      "environment": "production",
+      "status": "success",
+      "notes": "SMS rate limit."
+    },
+    {
+      "id": "dep-2025-07-15",
+      "service_id": "svc-order",
+      "version": "v1.14.0",
+      "deployed_at": "2025-07-15T13:00:00Z",
+      "commit_ids": [
+        "cmt-m3n4o5"
+      ],
+      "pr_ids": [
+        "pr-120"
+      ],
+      "environment": "production",
+      "status": "success",
+      "notes": "Fulfillment DLQ."
+    },
+    {
+      "id": "dep-2025-08-20",
+      "service_id": "svc-billing",
+      "version": "v2.1.0",
+      "deployed_at": "2025-08-20T14:00:00Z",
+      "commit_ids": [
+        "cmt-j0k1l2"
+      ],
+      "pr_ids": [
+        "pr-150"
+      ],
+      "environment": "production",
+      "status": "success",
+      "notes": "Double-entry refunds."
+    },
+    {
+      "id": "dep-2025-09-01",
+      "service_id": "svc-search",
+      "version": "v1.3.0",
+      "deployed_at": "2025-09-01T12:00:00Z",
+      "commit_ids": [
+        "cmt-k1l2m3"
+      ],
+      "pr_ids": [
+        "pr-160"
+      ],
+      "environment": "production",
+      "status": "success",
+      "notes": "Index backfill."
+    },
+    {
+      "id": "dep-2025-06-10",
+      "service_id": "svc-inventory",
+      "version": "v3.0.5",
+      "deployed_at": "2025-06-10T16:00:00Z",
+      "commit_ids": [
+        "cmt-o5p6q7"
+      ],
+      "pr_ids": [
+        "pr-75"
+      ],
+      "environment": "production",
+      "status": "success",
+      "notes": "Warehouse batch size tune."
+    }
+  ],
+  "rollbacks": [
+    {
+      "id": "rb-2025-03-05",
+      "service_id": "svc-auth",
+      "title": "Rollback short-lived access token experiment",
+      "rolled_back_at": "2025-03-05T17:30:00Z",
+      "from_version": "v4.0.0",
+      "to_version": "v4.0.1",
+      "reason": "Session drop spike (INC-2025-0304). Clients not refreshing reliably.",
+      "triggered_by": "incident",
+      "related_incident_ids": [
+        "INC-2025-0304"
+      ],
+      "related_pr_ids": [
+        "pr-28"
+      ],
+      "related_deployment_ids": [
+        "dep-2025-03-05-rollback"
+      ],
+      "outcome_id": "out-auth-ttl-rollback"
+    },
+    {
+      "id": "rb-2025-06-12",
+      "service_id": "svc-payment",
+      "title": "Config rollback: max_attempts 5 \u2192 3 (temporary)",
+      "rolled_back_at": "2025-06-12T14:00:00Z",
+      "from_version": "v2.5.0",
+      "to_version": "v2.5.0-config",
+      "reason": "p99 latency regression after retry rollout (INC-2025-0612).",
+      "triggered_by": "incident",
+      "related_incident_ids": [
+        "INC-2025-0612"
+      ],
+      "related_pr_ids": [
+        "pr-87"
+      ],
+      "related_deployment_ids": [
+        "dep-2025-06-18"
+      ],
+      "outcome_id": "out-retry-attempts-tuned"
+    },
+    {
+      "id": "rb-2025-03-11",
+      "service_id": "svc-payment",
+      "title": "Partial traffic shift away from retrying pods",
+      "rolled_back_at": "2025-03-10T20:30:00Z",
+      "from_version": "v2.3.8",
+      "to_version": "v2.3.8-drained",
+      "reason": "Connection pool exhaustion during provider 504s before hotfix.",
+      "triggered_by": "incident",
+      "related_incident_ids": [
+        "INC-2025-0310"
+      ],
+      "related_pr_ids": [
+        "pr-41"
+      ],
+      "related_deployment_ids": [
+        "dep-2025-03-10-hotfix"
+      ],
+      "outcome_id": "out-payment-backoff"
+    },
+    {
+      "id": "rb-2025-08-18",
+      "service_id": "svc-billing",
+      "title": "Disable new refund path feature flag",
+      "rolled_back_at": "2025-08-18T12:00:00Z",
+      "from_version": "v2.0.9",
+      "to_version": "v2.0.9-flag-off",
+      "reason": "Ledger inconsistency under partial refunds until PR-150.",
+      "triggered_by": "incident",
+      "related_incident_ids": [
+        "INC-2025-0818"
+      ],
+      "related_pr_ids": [
+        "pr-150"
+      ],
+      "related_deployment_ids": [
+        "dep-2025-08-20"
+      ],
+      "outcome_id": "out-billing-ledger"
+    },
+    {
+      "id": "rb-2025-09-02",
+      "service_id": "svc-search",
+      "title": "Pause indexer canary",
+      "rolled_back_at": "2025-09-02T09:00:00Z",
+      "from_version": "v1.2.9-canary",
+      "to_version": "v1.2.8",
+      "reason": "Stale results during canary; full fix in PR-160.",
+      "triggered_by": "incident",
+      "related_incident_ids": [
+        "INC-2025-0902"
+      ],
+      "related_pr_ids": [
+        "pr-160"
+      ],
+      "related_deployment_ids": [
+        "dep-2025-09-01"
+      ],
+      "outcome_id": "out-search-backfill"
+    },
+    {
+      "id": "rb-2025-07-12",
+      "service_id": "svc-order",
+      "title": "Revert experimental fulfillment batching",
+      "rolled_back_at": "2025-07-12T15:00:00Z",
+      "from_version": "v1.13.1",
+      "to_version": "v1.13.0",
+      "reason": "Increased dead-letter rate; replaced by proper DLQ in PR-120.",
+      "triggered_by": "metrics",
+      "related_incident_ids": [],
+      "related_pr_ids": [
+        "pr-120"
+      ],
+      "related_deployment_ids": [
+        "dep-2025-07-15"
+      ],
+      "outcome_id": "out-order-dlq"
+    }
+  ],
+  "outcomes": [
+    {
+      "id": "out-payment-backoff",
+      "service_id": "svc-payment",
+      "title": "Backoff + jitter eliminated cascade on provider 504s",
+      "date": "2025-03-20T00:00:00Z",
+      "summary": "After PR-42, payment success rate stayed stable during a later provider blip. No connection-pool exhaustion.",
+      "success": true,
+      "related_incident_ids": [
+        "INC-2025-0310"
+      ],
+      "related_pr_ids": [
+        "pr-42"
+      ],
+      "related_rollback_ids": [
+        "rb-2025-03-11"
+      ],
+      "metrics": {
+        "checkout_success_rate": "recovered to 99.2%",
+        "retry_amplification": "removed"
+      },
+      "created_at": "2025-03-20T00:00:00Z"
+    },
+    {
+      "id": "out-retry-attempts-tuned",
+      "service_id": "svc-payment",
+      "title": "max_attempts=3 restored p99 latency",
+      "date": "2025-06-25T00:00:00Z",
+      "summary": "p99 returned near 800ms baseline after reducing attempts and shipping PR-87.",
+      "success": true,
+      "related_incident_ids": [
+        "INC-2025-0612"
+      ],
+      "related_pr_ids": [
+        "pr-87"
+      ],
+      "related_rollback_ids": [
+        "rb-2025-06-12"
+      ],
+      "metrics": {
+        "p99_ms": "800\u21923200\u2192850"
+      },
+      "created_at": "2025-06-25T00:00:00Z"
+    },
+    {
+      "id": "out-circuit-breaker",
+      "service_id": "svc-payment",
+      "title": "Circuit breaker stopped thundering herd",
+      "date": "2025-08-15T00:00:00Z",
+      "summary": "During a subsequent provider brownout, breaker opened and thread pools stayed healthy.",
+      "success": true,
+      "related_incident_ids": [
+        "INC-2025-0730"
+      ],
+      "related_pr_ids": [
+        "pr-112"
+      ],
+      "related_rollback_ids": [],
+      "metrics": {
+        "pool_exhaustion": "none",
+        "fail_fast_ratio": "high during open"
+      },
+      "created_at": "2025-08-15T00:00:00Z"
+    },
+    {
+      "id": "out-auth-ttl-rollback",
+      "service_id": "svc-auth",
+      "title": "TTL experiment rolled back \u2014 sessions stable",
+      "date": "2025-03-10T00:00:00Z",
+      "summary": "Restoring 24h tokens removed the logout spike. Experiment documented as failed.",
+      "success": true,
+      "related_incident_ids": [
+        "INC-2025-0304"
+      ],
+      "related_pr_ids": [
+        "pr-28"
+      ],
+      "related_rollback_ids": [
+        "rb-2025-03-05"
+      ],
+      "metrics": {
+        "unexpected_logout_rate": "normalized"
+      },
+      "created_at": "2025-03-10T00:00:00Z"
+    },
+    {
+      "id": "out-order-idempotency",
+      "service_id": "svc-order",
+      "title": "Duplicate orders eliminated",
+      "date": "2025-04-20T00:00:00Z",
+      "summary": "Idempotency keys stopped duplicate order tickets after payment timeouts.",
+      "success": true,
+      "related_incident_ids": [
+        "INC-2025-0415"
+      ],
+      "related_pr_ids": [
+        "pr-55"
+      ],
+      "related_rollback_ids": [],
+      "metrics": {
+        "duplicate_order_tickets": "near zero"
+      },
+      "created_at": "2025-04-20T00:00:00Z"
+    },
+    {
+      "id": "out-inventory-locking",
+      "service_id": "svc-inventory",
+      "title": "No further oversell incidents",
+      "date": "2025-06-01T00:00:00Z",
+      "summary": "Optimistic locking held under peak concurrency.",
+      "success": true,
+      "related_incident_ids": [
+        "INC-2025-0520"
+      ],
+      "related_pr_ids": [
+        "pr-68"
+      ],
+      "related_rollback_ids": [],
+      "metrics": {
+        "negative_stock_events": "0"
+      },
+      "created_at": "2025-06-01T00:00:00Z"
+    },
+    {
+      "id": "out-billing-ledger",
+      "service_id": "svc-billing",
+      "title": "Refund ledger balanced after double-entry",
+      "date": "2025-08-25T00:00:00Z",
+      "summary": "Partial refunds no longer desync balances.",
+      "success": true,
+      "related_incident_ids": [
+        "INC-2025-0818"
+      ],
+      "related_pr_ids": [
+        "pr-150"
+      ],
+      "related_rollback_ids": [
+        "rb-2025-08-18"
+      ],
+      "metrics": {
+        "ledger_imbalance_alerts": "0"
+      },
+      "created_at": "2025-08-25T00:00:00Z"
+    },
+    {
+      "id": "out-search-backfill",
+      "service_id": "svc-search",
+      "title": "Index backfill removed stale results",
+      "date": "2025-09-05T00:00:00Z",
+      "summary": "Failed index updates recovered via backfill job.",
+      "success": true,
+      "related_incident_ids": [
+        "INC-2025-0902"
+      ],
+      "related_pr_ids": [
+        "pr-160"
+      ],
+      "related_rollback_ids": [
+        "rb-2025-09-02"
+      ],
+      "metrics": {
+        "stale_result_reports": "down"
+      },
+      "created_at": "2025-09-05T00:00:00Z"
+    },
+    {
+      "id": "out-order-dlq",
+      "service_id": "svc-order",
+      "title": "Fulfillment failures no longer silent",
+      "date": "2025-07-20T00:00:00Z",
+      "summary": "DLQ enabled replay and eliminated silent drops.",
+      "success": true,
+      "related_incident_ids": [],
+      "related_pr_ids": [
+        "pr-120"
+      ],
+      "related_rollback_ids": [
+        "rb-2025-07-12"
+      ],
+      "metrics": {
+        "silent_drop_rate": "0"
+      },
+      "created_at": "2025-07-20T00:00:00Z"
+    },
+    {
+      "id": "out-retry-metrics",
+      "service_id": "svc-payment",
+      "title": "Retry-rate alerts catch provider degradation early",
+      "date": "2025-09-20T00:00:00Z",
+      "summary": "Oncall acted on retry-rate alert before user-visible error spike in a minor provider blip.",
+      "success": true,
+      "related_incident_ids": [],
+      "related_pr_ids": [
+        "pr-134"
+      ],
+      "related_rollback_ids": [],
+      "metrics": {
+        "lead_time_to_detect": "improved"
+      },
+      "created_at": "2025-09-20T00:00:00Z"
+    }
+  ],
+  "architecture_decisions": [
+    {
+      "id": "ADR-007",
+      "title": "Retry policy for external payment providers",
+      "service_id": "svc-payment",
+      "status": "accepted",
+      "date": "2025-03-11T00:00:00Z",
+      "context": "After INC-2025-0310 we needed a clear policy for transient failures.",
+      "decision": "Exponential backoff with jitter, max 3 attempts (updated from 5), circuit breaker after consecutive failures. Do not retry 4xx.",
+      "consequences": "Slightly higher latency on transient errors; much better resilience. Monitor retry rate.",
+      "related_incident_ids": [
+        "INC-2025-0310",
+        "INC-2025-0612",
+        "INC-2025-0730"
+      ],
+      "related_pr_ids": [
+        "pr-42",
+        "pr-87",
+        "pr-112"
+      ],
+      "created_at": "2025-03-11T00:00:00Z"
+    },
+    {
+      "id": "ADR-012",
+      "title": "Idempotency for order creation",
+      "service_id": "svc-order",
+      "status": "accepted",
+      "date": "2025-04-07T00:00:00Z",
+      "context": "Client retries produced duplicate orders (INC-2025-0415).",
+      "decision": "Require Idempotency-Key header; store key\u2192order 24h.",
+      "consequences": "Clients must send stable keys; eliminates duplicate tickets.",
+      "related_incident_ids": [
+        "INC-2025-0415"
+      ],
+      "related_pr_ids": [
+        "pr-55"
+      ],
+      "created_at": "2025-04-07T00:00:00Z"
+    },
+    {
+      "id": "ADR-015",
+      "title": "Optimistic locking for inventory mutations",
+      "service_id": "svc-inventory",
+      "status": "accepted",
+      "date": "2025-05-21T00:00:00Z",
+      "context": "Concurrent reservations oversold (INC-2025-0520).",
+      "decision": "Version column; fail on mismatch; client retries.",
+      "consequences": "Higher conflict rate under extreme contention; acceptable.",
+      "related_incident_ids": [
+        "INC-2025-0520"
+      ],
+      "related_pr_ids": [
+        "pr-68"
+      ],
+      "created_at": "2025-05-21T00:00:00Z"
+    },
+    {
+      "id": "ADR-018",
+      "title": "Feature flags required for payment retry experiments",
+      "service_id": "svc-payment",
+      "status": "accepted",
+      "date": "2025-09-25T00:00:00Z",
+      "context": "Past retry changes caused latency and outage amplification.",
+      "decision": "Any change to retry/circuit-breaker defaults ships behind a flag with canary.",
+      "consequences": "Slower rollout; safer rollback (see rb-2025-06-12 pattern).",
+      "related_incident_ids": [
+        "INC-2025-0612",
+        "INC-2025-0730"
+      ],
+      "related_pr_ids": [
+        "pr-170"
+      ],
+      "created_at": "2025-09-25T00:00:00Z"
+    },
+    {
+      "id": "ADR-021",
+      "title": "Double-entry for billing refunds",
+      "service_id": "svc-billing",
+      "status": "accepted",
+      "date": "2025-08-19T00:00:00Z",
+      "context": "INC-2025-0818 ledger imbalance.",
+      "decision": "All refunds use double-entry ledger writes in one transaction.",
+      "consequences": "Slightly more complex code; correct balances.",
+      "related_incident_ids": [
+        "INC-2025-0818"
+      ],
+      "related_pr_ids": [
+        "pr-150"
+      ],
+      "created_at": "2025-08-19T00:00:00Z"
+    }
+  ],
+  "memory_entries": [
+    {
+      "id": "mem-001",
+      "type": "lesson",
+      "service_id": "svc-payment",
+      "title": "Retries without backoff amplify outages",
+      "content": "INC-2025-0310: immediate retries against a degrading dependency turn a partial outage into a full one.",
+      "source_ids": [
+        "INC-2025-0310",
+        "pr-42",
+        "ADR-007",
+        "issue-881",
+        "out-payment-backoff"
+      ],
+      "created_at": "2025-03-12T00:00:00Z",
+      "tags": [
+        "retry",
+        "resilience",
+        "payment-service"
+      ]
+    },
+    {
+      "id": "mem-002",
+      "type": "lesson",
+      "service_id": "svc-payment",
+      "title": "Max retry attempts must be tuned",
+      "content": "5 attempts produced unacceptable p99 (INC-2025-0612). Settled on 3 after histograms + config rollback.",
+      "source_ids": [
+        "INC-2025-0612",
+        "pr-87",
+        "ADR-007",
+        "rb-2025-06-12",
+        "out-retry-attempts-tuned"
+      ],
+      "created_at": "2025-06-18T00:00:00Z",
+      "tags": [
+        "retry",
+        "latency",
+        "payment-service"
+      ]
+    },
+    {
+      "id": "mem-003",
+      "type": "lesson",
+      "service_id": "svc-payment",
+      "title": "Circuit breaker required when dependency goes dark",
+      "content": "Retries alone caused thundering herd (INC-2025-0730). Breaker protects resources.",
+      "source_ids": [
+        "INC-2025-0730",
+        "pr-112",
+        "ADR-007",
+        "out-circuit-breaker"
+      ],
+      "created_at": "2025-08-05T00:00:00Z",
+      "tags": [
+        "circuit-breaker",
+        "resilience",
+        "payment-service"
+      ]
+    },
+    {
+      "id": "mem-004",
+      "type": "decision",
+      "service_id": "svc-payment",
+      "title": "Retry metrics are a leading indicator",
+      "content": "Elevated retry rates precede user-visible errors. Alert before SEV-1.",
+      "source_ids": [
+        "pr-134",
+        "ADR-007",
+        "out-retry-metrics"
+      ],
+      "created_at": "2025-09-11T00:00:00Z",
+      "tags": [
+        "observability",
+        "payment-service"
+      ]
+    },
+    {
+      "id": "mem-005",
+      "type": "lesson",
+      "service_id": "svc-order",
+      "title": "Idempotency is mandatory when clients retry",
+      "content": "Any endpoint clients retry after timeout must be idempotent (INC-2025-0415).",
+      "source_ids": [
+        "INC-2025-0415",
+        "pr-55",
+        "ADR-012",
+        "out-order-idempotency"
+      ],
+      "created_at": "2025-04-16T00:00:00Z",
+      "tags": [
+        "idempotency",
+        "order-service"
+      ]
+    },
+    {
+      "id": "mem-006",
+      "type": "lesson",
+      "service_id": "svc-auth",
+      "title": "Aggressive TTL experiments need client readiness",
+      "content": "Short tokens without client refresh readiness caused session drops; rolled back (rb-2025-03-05).",
+      "source_ids": [
+        "INC-2025-0304",
+        "pr-28",
+        "rb-2025-03-05",
+        "out-auth-ttl-rollback"
+      ],
+      "created_at": "2025-03-06T00:00:00Z",
+      "tags": [
+        "auth",
+        "rollback"
+      ]
+    },
+    {
+      "id": "mem-007",
+      "type": "lesson",
+      "service_id": "svc-payment",
+      "title": "Feature flags for retry policy changes",
+      "content": "ADR-018: ship retry/circuit changes behind flags after past latency and outage amplification.",
+      "source_ids": [
+        "ADR-018",
+        "pr-170",
+        "rb-2025-06-12"
+      ],
+      "created_at": "2025-09-26T00:00:00Z",
+      "tags": [
+        "feature-flag",
+        "payment-service"
+      ]
+    },
+    {
+      "id": "mem-008",
+      "type": "lesson",
+      "service_id": "svc-billing",
+      "title": "Refunds need transactional double-entry",
+      "content": "Partial refunds desynced ledger until PR-150 / ADR-021.",
+      "source_ids": [
+        "INC-2025-0818",
+        "pr-150",
+        "ADR-021",
+        "out-billing-ledger"
+      ],
+      "created_at": "2025-08-21T00:00:00Z",
+      "tags": [
+        "billing",
+        "correctness"
+      ]
+    },
+    {
+      "id": "mem-009",
+      "type": "lesson",
+      "service_id": "svc-inventory",
+      "title": "Optimistic locking stops oversell races",
+      "content": "Version checks fixed concurrent last-item races (INC-2025-0520).",
+      "source_ids": [
+        "INC-2025-0520",
+        "pr-68",
+        "ADR-015",
+        "out-inventory-locking"
+      ],
+      "created_at": "2025-05-23T00:00:00Z",
+      "tags": [
+        "inventory",
+        "correctness"
+      ]
+    },
+    {
+      "id": "mem-010",
+      "type": "lesson",
+      "service_id": "svc-search",
+      "title": "Index failures need backfill, not only canary pause",
+      "content": "Pausing canary (rb-2025-09-02) stopped bleed; backfill fixed root cause.",
+      "source_ids": [
+        "INC-2025-0902",
+        "pr-160",
+        "rb-2025-09-02",
+        "out-search-backfill"
+      ],
+      "created_at": "2025-09-03T00:00:00Z",
+      "tags": [
+        "search",
+        "rollback"
+      ]
+    }
+  ]
+}

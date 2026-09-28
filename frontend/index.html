@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EngBrain — Engineering Organizational Memory</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div id="app">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="logo">EB</div>
+        <div>
+          <div class="brand-name">EngBrain</div>
+          <div class="brand-tag">Organizational Memory</div>
+        </div>
+      </div>
+      <nav>
+        <button class="nav-btn active" data-view="dashboard">Dashboard</button>
+        <button class="nav-btn" data-view="ask">Ask EngBrain</button>
+        <button class="nav-btn" data-view="timeline">Engineering Timeline</button>
+        <button class="nav-btn" data-view="review">Incident-Aware Review</button>
+        <button class="nav-btn" data-view="incidents">Incidents</button>
+      </nav>
+      <div class="sidebar-footer">
+        <p class="tagline">“EngBrain doesn’t just understand your code. It remembers why your code became the way it is.”</p>
+      </div>
+    </aside>
+
+    <!-- Main -->
+    <main class="main">
+      <!-- DASHBOARD -->
+      <section id="view-dashboard" class="view active">
+        <header class="page-header">
+          <h1>Dashboard</h1>
+          <p class="subtitle">Hindsight memory at a glance</p>
+        </header>
+        <div class="stats-grid" id="stats-grid"></div>
+        <div class="two-col">
+          <div class="card">
+            <h2>Services</h2>
+            <div id="services-list" class="entity-list"></div>
+          </div>
+          <div class="card">
+            <h2>Recent Memory Lessons</h2>
+            <div id="memory-list" class="entity-list"></div>
+          </div>
+        </div>
+        <div class="card demo-card">
+          <h2>Hindsight Demo Path</h2>
+          <p>Watch the system become more useful as memory grows. Click to run the core demo questions:</p>
+          <div class="demo-buttons">
+            <button class="demo-btn" data-q="What happened with payment-service?">1. What happened with payment-service?</button>
+            <button class="demo-btn" data-q="Have we seen this timeout before?">5. Have we seen this timeout before?</button>
+            <button class="demo-btn" data-q="What caused previous failures in payment-service?">10. What caused previous failures?</button>
+            <button class="demo-btn" data-q="Why does the retry logic in payment_service.py exist?">Core: Why does retry logic exist?</button>
+            <button class="demo-btn primary" data-q="What should I know before changing the retry logic in payment-service?">Core: What should I know before changing this?</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ASK -->
+      <section id="view-ask" class="view">
+        <header class="page-header">
+          <h1>Ask EngBrain</h1>
+          <p class="subtitle">Answers grounded in commits, PRs, incidents, deployments & decisions</p>
+        </header>
+        <div class="ask-box">
+          <textarea id="question-input" rows="3" placeholder="e.g. Why does the retry logic in payment_service.py exist?"></textarea>
+          <div class="ask-actions">
+            <button id="ask-btn" class="primary-btn">Ask</button>
+            <span id="ask-status" class="status"></span>
+          </div>
+        </div>
+        <div id="answer-panel" class="answer-panel hidden">
+          <div class="answer-section">
+            <h3>Answer</h3>
+            <div id="answer-text" class="answer-body"></div>
+          </div>
+          <div class="answer-grid">
+            <div class="answer-section">
+              <h3>Historical Context</h3>
+              <ul id="historical-context"></ul>
+            </div>
+            <div class="answer-section">
+              <h3>Related Incidents</h3>
+              <div id="related-incidents"></div>
+            </div>
+            <div class="answer-section">
+              <h3>GitHub Evidence</h3>
+              <div id="github-evidence"></div>
+            </div>
+            <div class="answer-section">
+              <h3>Deployments</h3>
+              <div id="deployments-list"></div>
+            </div>
+          </div>
+          <div class="answer-section sources-section">
+            <h3>Sources <span id="evidence-count" class="badge"></span></h3>
+            <div id="sources-list" class="sources"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TIMELINE -->
+      <section id="view-timeline" class="view">
+        <header class="page-header">
+          <h1>Engineering Timeline</h1>
+          <p class="subtitle">Incidents · Deployments · PRs · Architecture Decisions</p>
+        </header>
+        <div id="timeline" class="timeline"></div>
+      </section>
+
+      
+      <!-- INCIDENT-AWARE CODE REVIEW -->
+      <section id="view-review" class="view">
+        <header class="page-header">
+          <h1>Incident-Aware Code Review</h1>
+          <p class="subtitle">Compare a proposed change with engineering memory — warnings cite incidents, rollbacks, ADRs, and prior reviews</p>
+        </header>
+        <div class="ask-box">
+          <label class="field-label">Service</label>
+          <div class="service-pills" id="review-services">
+            <button type="button" class="pill active" data-svc="payment-service">payment-service</button>
+            <button type="button" class="pill" data-svc="auth-service">auth-service</button>
+            <button type="button" class="pill" data-svc="notification-service">notification-service</button>
+          </div>
+          <label class="field-label">Change summary</label>
+          <textarea id="review-change-input" rows="4" placeholder="e.g. Increase max_attempts from 3 to 5 and disable the circuit breaker"></textarea>
+          <label class="field-label">Files touched (optional, comma-separated)</label>
+          <input id="review-files-input" type="text" placeholder="retry.py, circuit_breaker.py" />
+          <div class="ask-actions">
+            <button id="review-btn" class="primary-btn">Review change</button>
+            <span id="review-status" class="status"></span>
+          </div>
+          <div class="demo-buttons" style="margin-top:0.75rem">
+            <button type="button" class="demo-btn" data-review='{"service":"payment-service","change":"Increase max_attempts from 3 to 5 and remove circuit breaker","files":"retry.py, circuit_breaker.py"}'>Demo: risky payment retry change</button>
+            <button type="button" class="demo-btn" data-review='{"service":"auth-service","change":"Shorten access token TTL to 5 minutes","files":"token.go"}'>Demo: auth TTL change</button>
+            <button type="button" class="demo-btn" data-review='{"service":"notification-service","change":"Remove SMS rate limiting to speed delivery","files":"sms_sender.py"}'>Demo: notif rate limit removal</button>
+          </div>
+        </div>
+        <div id="review-panel" class="answer-panel hidden">
+          <div class="answer-section">
+            <h3>Risk <span id="review-risk-badge" class="badge"></span></h3>
+            <div id="review-summary" class="answer-body"></div>
+          </div>
+          <div class="answer-section">
+            <h3>Warnings</h3>
+            <div id="review-warnings"></div>
+          </div>
+          <div class="answer-grid">
+            <div class="answer-section">
+              <h3>Related incidents</h3>
+              <div id="review-incidents"></div>
+            </div>
+            <div class="answer-section">
+              <h3>Related rollbacks</h3>
+              <div id="review-rollbacks"></div>
+            </div>
+            <div class="answer-section">
+              <h3>Prior code reviews</h3>
+              <div id="review-reviews"></div>
+            </div>
+            <div class="answer-section">
+              <h3>Outcomes</h3>
+              <div id="review-outcomes"></div>
+            </div>
+          </div>
+          <div class="answer-section sources-section">
+            <h3>Sources</h3>
+            <div id="review-sources" class="sources"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- INCIDENTS -->
+      <section id="view-incidents" class="view">
+        <header class="page-header">
+          <h1>Incidents</h1>
+          <p class="subtitle">Root causes, fixes, and linked PRs</p>
+        </header>
+        <div id="incidents-list" class="incidents-grid"></div>
+        <div id="incident-detail" class="incident-detail hidden"></div>
+      </section>
+    </main>
+  </div>
+  <script src="/static/app.js"></script>
+</body>
+</html>
